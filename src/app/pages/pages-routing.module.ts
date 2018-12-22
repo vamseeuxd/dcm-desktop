@@ -23,7 +23,7 @@ const routes: Routes = [{
     loadChildren: './modal-overlays/modal-overlays.module#ModalOverlaysModule',
   }, {
     path: 'extra-components',
-    loadChildren: './extra-components/extra-components.module#ExtraComponentsModule',
+    loadChildren: './examples/extra-components/extra-components.module#ExtraComponentsModule',
   }, {
     path: 'bootstrap',
     loadChildren: './examples/bootstrap/bootstrap.module#BootstrapModule',
