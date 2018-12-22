@@ -8,8 +8,9 @@ import {NbToastrService} from '@nebular/theme';
 })
 export class OrderTakingSystemComponent {
 
-  productsList = [];
+  productList: { categoryName: string, products: { id: string, label: string }[] }[] = [];
   allProducts: { id: string, label: string }[] = [];
+  quickProducts: { id: string, label: string }[] = [];
 
   constructor(private toastrService: NbToastrService) {
     this.addDummyProducts();
@@ -22,20 +23,17 @@ export class OrderTakingSystemComponent {
       for (let j = 0; j < 10; j++) {
         newCategory.products.push({id: i + '-' + j, label: 'Product ' + i + '-' + j});
         this.allProducts.push({id: i + '-' + j, label: 'Product ' + i + '-' + j});
+        if (j === 0) {
+          this.quickProducts.push({id: i + '-' + j, label: 'Product ' + i + '-' + j});
+        }
       }
-      this.productsList.push(newCategory);
+      this.productList.push(newCategory);
     }
   }
 
-  onQuickProductSelect($event: NgbTypeaheadSelectItemEvent) {
+  onQuickProductSelect($event: { id: string, label: string }) {
     this.toastrService.show(
       'Product Added To Cart',
-      $event.item.label + ' is added to Cart');
-  }
-
-  setFocusToQuickSearch(quickProductAccordion, quickProductSearch) {
-    if (!quickProductAccordion.collapsed) {
-      quickProductSearch.setFocus();
-    }
+      $event.label + ' is added to Cart');
   }
 }

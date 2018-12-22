@@ -1,0 +1,35 @@
+<nb-accordion>
+  <nb-accordion-item #quickProductAccordion
+                     (collapsedChange)="setQuickSearchFocus()"
+                     [collapsed]="false">
+    <nb-accordion-item-header>Quick List</nb-accordion-item-header>
+    <nb-accordion-item-body>
+
+      <ngx-quick-product-search #quickProductSearch
+                                (selectProduct)="onQuickProductSelect($event.item)"
+                                [allProducts]="allProducts">
+      </ngx-quick-product-search>
+
+
+      <button (click)="onQuickProductSelect(product)"
+              *ngFor="let product of quickProducts"
+              class="btn btn-hero-secondary btn-demo m-1 mt-3"
+              style="cursor: pointer;">{{ product.label }}
+      </button>
+
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+  <nb-accordion-item *ngFor="let cat of productsList;">
+    <nb-accordion-item-header>
+      {{ cat.categoryName }}
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <button (click)="onQuickProductSelect(product)"
+              *ngFor="let product of cat.products"
+              class="btn btn-hero-secondary btn-demo m-2"
+              style="cursor: pointer;">
+        {{product.label}}
+      </button>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>

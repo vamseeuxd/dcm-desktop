@@ -6,6 +6,7 @@ import {ThemeModule} from '../../@theme/theme.module';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {QuickProductSearchComponent} from './quick-product-search/quick-product-search.component';
+import {ProductSearchListComponent} from './product-search-list/product-search-list.component';
 
 @NgModule({
   imports: [
@@ -18,14 +19,17 @@ import {QuickProductSearchComponent} from './quick-product-search/quick-product-
   declarations: [
     OrderTakingSystemComponent,
     QuickProductSearchComponent,
+    ProductSearchListComponent,
   ],
   exports: [
     OrderTakingSystemComponent,
     QuickProductSearchComponent,
+    ProductSearchListComponent,
   ],
   entryComponents: [
     OrderTakingSystemComponent,
     QuickProductSearchComponent,
+    ProductSearchListComponent,
   ],
   providers: [],
 })
