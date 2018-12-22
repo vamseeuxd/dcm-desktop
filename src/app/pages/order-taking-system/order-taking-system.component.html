@@ -1,3 +1,29 @@
-<div class="row">
-  <h1>Order Taking System</h1>
+<div class="accordions-container row">
+  <div class="accordion-container col-md-12 col-lg-6 col-xxxl-6">
+    <nb-accordion>
+      <nb-accordion-item [collapsed]="false">
+        <nb-accordion-item-header>Quick List</nb-accordion-item-header>
+        <nb-accordion-item-body>
+
+          <ngx-quick-product-search (selectProduct)="onQuickProductSelect($event)"
+                                    [allProducts]="allProducts"></ngx-quick-product-search>
+
+
+          <button *ngFor="let product of [1,2,3,4,5]"
+                  class="btn btn-hero-secondary btn-demo m-1 mt-3"
+                  style="cursor: pointer;">{{ 'Quick product ' + product }}</button>
+
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+      <nb-accordion-item *ngFor="let cat of productsList;let _index = index">
+        <nb-accordion-item-header>{{ cat.categoryName }}</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <button *ngFor="let product of cat.products"
+                  class="btn btn-hero-secondary btn-demo m-2"
+                  style="cursor: pointer;height: 75px;">{{product.label}}</button>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </div>
 </div>
+

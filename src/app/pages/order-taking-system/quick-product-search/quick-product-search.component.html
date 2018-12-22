@@ -1,0 +1,14 @@
+<div class="input-group">
+  <input (selectItem)="onProductSelect($event)"
+         [(ngModel)]="model"
+         [inputFormatter]="formatter"
+         [ngbTypeahead]="search"
+         [resultFormatter]="formatter"
+         autofocus
+         class="form-control"
+         placeholder="Search for..."
+         type="text">
+  <span class="input-group-append">
+    <button class="btn btn-primary input-group-text"> Search </button>
+  </span>
+</div>
