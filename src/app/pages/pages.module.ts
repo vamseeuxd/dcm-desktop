@@ -5,7 +5,7 @@ import {DashboardModule} from './examples/dashboard/dashboard.module';
 import {ECommerceModule} from './examples/e-commerce/e-commerce.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
-import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
+import {MiscellaneousModule} from './examples/miscellaneous/miscellaneous.module';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
