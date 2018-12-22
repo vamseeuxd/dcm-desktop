@@ -35,7 +35,7 @@ const routes: Routes = [{
     loadChildren: './examples/charts/charts.module#ChartsModule',
   }, {
     path: 'editors',
-    loadChildren: './editors/editors.module#EditorsModule',
+    loadChildren: './examples/editors/editors.module#EditorsModule',
   }, {
     path: 'forms',
     loadChildren: './forms/forms.module#FormsModule',
