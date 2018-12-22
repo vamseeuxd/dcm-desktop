@@ -16,15 +16,19 @@ export class QuickProductSearchComponent implements OnInit {
   @Output() selectProduct: EventEmitter<NgbTypeaheadSelectItemEvent> = new EventEmitter<NgbTypeaheadSelectItemEvent>();
 
   // @ts-ignore
-  search = (text$: Observable<string>) =>
-    text$.pipe(
+  // @ts-ignore
+  search = (text$: Observable<string>) => {
+    return text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
       map(
         term => term.length < 2 ? [] :
-          this.allProducts.filter(v => v.id.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10),
+          this.allProducts
+            .filter(product => product.id.toLowerCase()
+              .indexOf(term.toLowerCase()) > -1).slice(0, 10),
       ),
     );
+  }
 
   formatter = (result: { id: string, label: string }) => result.label.toUpperCase();
 
