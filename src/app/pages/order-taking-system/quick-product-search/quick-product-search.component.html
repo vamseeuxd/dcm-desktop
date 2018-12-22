@@ -1,5 +1,6 @@
 <div class="input-group">
   <input (selectItem)="onProductSelect($event)"
+         #searchInput
          [(ngModel)]="model"
          [inputFormatter]="formatter"
          [ngbTypeahead]="search"

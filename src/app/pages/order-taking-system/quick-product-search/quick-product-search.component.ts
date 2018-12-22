@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import {NgbTypeaheadSelectItemEvent} from '@ng-bootstrap/ng-bootstrap';
@@ -11,7 +11,7 @@ import {NgbTypeaheadSelectItemEvent} from '@ng-bootstrap/ng-bootstrap';
 export class QuickProductSearchComponent implements OnInit {
 
   public model: any;
-
+  @ViewChild('searchInput') searchInput: any;
   @Input() allProducts: { id: string, label: string }[] = [];
   @Output() selectProduct: EventEmitter<NgbTypeaheadSelectItemEvent> = new EventEmitter<NgbTypeaheadSelectItemEvent>();
 
@@ -35,5 +35,9 @@ export class QuickProductSearchComponent implements OnInit {
     $event.preventDefault();
     this.model = null;
     this.selectProduct.emit($event);
+  }
+
+  setFocus() {
+    setTimeout(() => this.searchInput.nativeElement.focus(), 50);
   }
 }

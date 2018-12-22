@@ -28,9 +28,14 @@ export class OrderTakingSystemComponent {
   }
 
   onQuickProductSelect($event: NgbTypeaheadSelectItemEvent) {
-    console.log($event);
     this.toastrService.show(
       'Product Added To Cart',
       $event.item.label + ' is added to Cart');
+  }
+
+  setFocusToQuickSearch(quickProductAccordion, quickProductSearch) {
+    if (!quickProductAccordion.collapsed) {
+      quickProductSearch.setFocus();
+    }
   }
 }

@@ -1,11 +1,13 @@
 <div class="accordions-container row">
   <div class="accordion-container col-md-12 col-lg-6 col-xxxl-6">
     <nb-accordion>
-      <nb-accordion-item [collapsed]="false">
+      <nb-accordion-item #quickProductAccordion
+                         (collapsedChange)="setFocusToQuickSearch(quickProductAccordion, quickProductSearch)"
+                         [collapsed]="false">
         <nb-accordion-item-header>Quick List</nb-accordion-item-header>
         <nb-accordion-item-body>
 
-          <ngx-quick-product-search (selectProduct)="onQuickProductSelect($event)"
+          <ngx-quick-product-search #quickProductSearch (selectProduct)="onQuickProductSelect($event)"
                                     [allProducts]="allProducts"></ngx-quick-product-search>
 
 
