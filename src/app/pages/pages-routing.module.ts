@@ -5,6 +5,7 @@ import { PagesComponent } from './pages.component';
 import {DashboardComponent} from './examples/dashboard/dashboard.component';
 import {ECommerceComponent} from './examples/e-commerce/e-commerce.component';
 import {NotFoundComponent} from './examples/miscellaneous/not-found/not-found.component';
+import {OrderTakingSystemComponent} from './order-taking-system/order-taking-system.component';
 
 const routes: Routes = [{
   path: '',
@@ -15,6 +16,9 @@ const routes: Routes = [{
   }, {
     path: 'iot-dashboard',
     component: DashboardComponent,
+  }, {
+    path: 'order-taking-system',
+    component: OrderTakingSystemComponent,
   }, {
     path: 'ui-features',
     loadChildren: './examples/ui-features/ui-features.module#UiFeaturesModule',

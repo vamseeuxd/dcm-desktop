@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import {Component, Input, OnDestroy} from '@angular/core';
 import { delay, withLatestFrom, takeWhile } from 'rxjs/operators';
 import {
   NbMediaBreakpoint,
@@ -18,13 +18,14 @@ import { StateService } from '../../../@core/data/state.service';
   template: `
     <nb-layout [center]="layout.id === 'center-column'" windowMode>
       <nb-layout-header fixed>
-        <ngx-header [position]="sidebar.id === 'start' ? 'normal': 'inverse'"></ngx-header>
+        <ngx-header [showSideBar]="showSideBar" [position]="sidebar.id === 'start' ? 'normal': 'inverse'"></ngx-header>
       </nb-layout-header>
 
       <nb-sidebar class="menu-sidebar"
-                   tag="menu-sidebar"
-                   responsive
-                   [end]="sidebar.id === 'end'">
+                  tag="menu-sidebar"
+                  *ngIf="showSideBar"
+                  responsive
+                  [end]="sidebar.id === 'end'">
         <nb-sidebar-header *ngIf="currentTheme !== 'corporate'">
           <a href="#" class="btn btn-hero-success main-btn">
             <i class="ion ion-social-github"></i> <span>Support Us</span>
@@ -104,6 +105,7 @@ export class SampleLayoutComponent implements OnDestroy {
   ];
   layout: any = {};
   sidebar: any = {};
+  @Input() showSideBar = true;
 
   private alive = true;
 

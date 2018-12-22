@@ -13,6 +13,7 @@ import { LayoutService } from '../../../@core/data/layout.service';
 export class HeaderComponent implements OnInit {
 
   @Input() position = 'normal';
+  @Input() showSideBar = true;
 
   user: any;
 

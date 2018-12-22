@@ -1,6 +1,12 @@
-import { NbMenuItem } from '@nebular/theme';
+import {NbMenuItem} from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
+  {
+    title: 'Order Taking System',
+    icon: 'nb-e-commerce',
+    link: '/pages/order-taking-system',
+    home: true,
+  },
   {
     title: 'E-commerce',
     icon: 'nb-e-commerce',
@@ -255,4 +261,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+];
+
+export const No_SIDEBAR_MENUS = [
+  '/pages/order-taking-system',
 ];
