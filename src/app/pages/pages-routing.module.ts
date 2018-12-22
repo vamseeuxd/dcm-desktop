@@ -32,7 +32,7 @@ const routes: Routes = [{
     loadChildren: './maps/maps.module#MapsModule',
   }, {
     path: 'charts',
-    loadChildren: './charts/charts.module#ChartsModule',
+    loadChildren: './examples/charts/charts.module#ChartsModule',
   }, {
     path: 'editors',
     loadChildren: './editors/editors.module#EditorsModule',
