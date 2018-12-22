@@ -26,7 +26,7 @@ const routes: Routes = [{
     loadChildren: './extra-components/extra-components.module#ExtraComponentsModule',
   }, {
     path: 'bootstrap',
-    loadChildren: './bootstrap/bootstrap.module#BootstrapModule',
+    loadChildren: './examples/bootstrap/bootstrap.module#BootstrapModule',
   }, {
     path: 'maps',
     loadChildren: './maps/maps.module#MapsModule',
