@@ -1,0 +1,115 @@
+<nb-accordion>
+  <nb-accordion-item #quickProductAccordion [collapsed]="false">
+    <nb-accordion-item-header>Customer Details
+      : {{isOldCustomer ? ('Name: ' + customer.name.name + ', Mobile : ' + customer.mobile.mobile) : ''}}</nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <form #customerForm="ngForm" (reset)="resetCustomerData()" (submit)="saveCustomer()" class="row" novalidate>
+
+        <!-- First Name & Last Name -->
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <div class="form-group">
+            <label for="customerName">First Name & Last Name <span class="text-danger">*</span></label>
+            <input (selectItem)="updateCustomer($event,'name')" [(ngModel)]="customer.name"
+                   [inputFormatter]="nameInputFormatter"
+                   [ngbTypeahead]="nameSearch"
+                   [resultFormatter]="nameResultFormatter"
+                   class="form-control"
+                   id="customerName"
+                   name="customerName"
+                   placeholder="First Name & Last Name"
+                   required
+                   type="text">
+          </div>
+        </div>
+
+        <!-- Age -->
+        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+          <div class="form-group">
+            <label for="customerAge">Age <span class="text-danger">*</span></label>
+            <input [(ngModel)]="customer.age" class="form-control" id="customerAge" name="customerAge" placeholder="Age"
+                   required type="number">
+          </div>
+        </div>
+
+        <!--Gender-->
+        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+          <div class="form-group">
+            <label for="customerGender">Gender <span class="text-danger">*</span></label>
+            <select [(ngModel)]="customer.gender" class="form-control" id="customerGender" name="customerGender"
+                    required>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+        </div>
+
+        <!--Email-->
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+          <div class="form-group">
+            <label for="customerEmail">Email</label>
+            <input [(ngModel)]="customer.email"
+                   class="form-control"
+                   id="customerEmail"
+                   name="customerEmail" placeholder="Email"
+                   type="email">
+          </div>
+        </div>
+
+        <!--Mobile Number-->
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+          <div class="form-group">
+            <label for="customerMobile">Mobile Number <span class="text-danger">*</span></label>
+            <input (selectItem)="updateCustomer($event,'mobile')"
+                   [(ngModel)]="customer.mobile"
+                   [inputFormatter]="mobileInputFormatter"
+                   [ngbTypeahead]="mobileSearch"
+                   [resultFormatter]="mobileResultFormatter"
+                   class="form-control"
+                   id="customerMobile"
+                   min="10"
+                   name="customerMobile"
+                   placeholder="Mobile Number"
+                   required
+                   type="tel">
+          </div>
+        </div>
+
+        <!--Referrer-->
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+          <div class="form-group">
+            <label for="customerReferrer">Referrer</label>
+            <input [(ngModel)]="customer.referrer" class="form-control" id="customerReferrer" name="customerReferrer"
+                   placeholder="Referrer"
+                   type="text">
+          </div>
+        </div>
+
+        <!--Address-->
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <div class="form-group">
+            <label for="customerAddress">Address</label>
+            <textarea [(ngModel)]="customer.address" class="form-control" id="customerAddress" name="customerAddress"
+                      placeholder="Enter Address"></textarea>
+          </div>
+        </div>
+
+        <!--Remarks-->
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <div class="form-group">
+            <label for="customerRemarks">Remarks</label>
+            <textarea [(ngModel)]="customer.remarks" class="form-control" id="customerRemarks" name="customerRemarks"
+                      placeholder="Enter Remarks"></textarea>
+          </div>
+        </div>
+        <!-- Save & Reset Button -->
+        <div class="col-12 text-right">
+          <button [disabled]="customerForm.invalid || isOldCustomer" class="btn btn-primary mr-3" type="submit">Save &
+            Select
+          </button>
+          <button class="btn btn-secondary" type="reset">Reset</button>
+        </div>
+
+      </form>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>
