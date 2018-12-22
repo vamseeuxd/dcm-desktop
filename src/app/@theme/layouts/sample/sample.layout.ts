@@ -18,7 +18,9 @@ import { StateService } from '../../../@core/data/state.service';
   template: `
     <nb-layout [center]="layout.id === 'center-column'" windowMode>
       <nb-layout-header fixed>
-        <ngx-header [showSideBar]="showSideBar" [position]="sidebar.id === 'start' ? 'normal': 'inverse'"></ngx-header>
+        <ngx-header [showSideBar]="showSideBar"
+                    [showRightSideMenu]="showRightSideMenu"
+                    [position]="sidebar.id === 'start' ? 'normal': 'inverse'"></ngx-header>
       </nb-layout-header>
 
       <nb-sidebar class="menu-sidebar"
@@ -50,11 +52,11 @@ import { StateService } from '../../../@core/data/state.service';
         <ngx-footer></ngx-footer>
       </nb-layout-footer>
 
-      <nb-sidebar class="settings-sidebar"
-                   tag="settings-sidebar"
-                   state="collapsed"
-                   fixed
-                   [end]="sidebar.id !== 'end'">
+      <nb-sidebar *ngIf="showRightSideMenu" class="settings-sidebar"
+                  tag="settings-sidebar"
+                  state="collapsed"
+                  fixed
+                  [end]="sidebar.id !== 'end'">
         <ngx-theme-settings></ngx-theme-settings>
       </nb-sidebar>
     </nb-layout>
@@ -106,6 +108,7 @@ export class SampleLayoutComponent implements OnDestroy {
   layout: any = {};
   sidebar: any = {};
   @Input() showSideBar = true;
+  @Input() showRightSideMenu = true;
   @Input() showFooter = true;
 
   private alive = true;

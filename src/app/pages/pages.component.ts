@@ -7,7 +7,9 @@ import {NavigationEnd, Router} from '@angular/router';
   selector: 'ngx-pages',
   styleUrls: ['pages.component.scss'],
   template: `
-    <ngx-sample-layout [showSideBar]="showSideBar" [showFooter]="showFooter">
+    <ngx-sample-layout [showSideBar]="showSideBar"
+                       [showRightSideMenu]="showRightSideMenu"
+                       [showFooter]="showFooter">
       <nb-menu [items]="menu"></nb-menu>
       <router-outlet></router-outlet>
     </ngx-sample-layout>
@@ -16,6 +18,7 @@ import {NavigationEnd, Router} from '@angular/router';
 export class PagesComponent {
 
   showSideBar;
+  showRightSideMenu = false;
   showFooter;
   menu = MENU_ITEMS;
 
@@ -24,6 +27,7 @@ export class PagesComponent {
       if (event instanceof NavigationEnd) {
         this.showSideBar = No_SIDEBAR_MENUS.filter(menuUrl => menuUrl === event.url).length === 0;
         this.showFooter = No_SIDEBAR_MENUS.filter(menuUrl => menuUrl === event.url).length === 0;
+        this.showRightSideMenu = No_SIDEBAR_MENUS.filter(menuUrl => menuUrl === event.url).length === 0;
       }
     });
   }
