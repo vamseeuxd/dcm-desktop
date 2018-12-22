@@ -46,7 +46,7 @@ import { StateService } from '../../../@core/data/state.service';
         <nb-menu [items]="subMenu"></nb-menu>
       </nb-layout-column>
 
-      <nb-layout-footer fixed>
+      <nb-layout-footer fixed *ngIf="showFooter">
         <ngx-footer></ngx-footer>
       </nb-layout-footer>
 
@@ -106,6 +106,7 @@ export class SampleLayoutComponent implements OnDestroy {
   layout: any = {};
   sidebar: any = {};
   @Input() showSideBar = true;
+  @Input() showFooter = true;
 
   private alive = true;
 
