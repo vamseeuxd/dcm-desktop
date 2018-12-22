@@ -2,9 +2,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ECommerceComponent } from './e-commerce/e-commerce.component';
-import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
+import {DashboardComponent} from './examples/dashboard/dashboard.component';
+import {ECommerceComponent} from './examples/e-commerce/e-commerce.component';
+import {NotFoundComponent} from './examples/miscellaneous/not-found/not-found.component';
 
 const routes: Routes = [{
   path: '',
@@ -17,34 +17,34 @@ const routes: Routes = [{
     component: DashboardComponent,
   }, {
     path: 'ui-features',
-    loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
+    loadChildren: './examples/ui-features/ui-features.module#UiFeaturesModule',
   }, {
     path: 'modal-overlays',
-    loadChildren: './modal-overlays/modal-overlays.module#ModalOverlaysModule',
+    loadChildren: './examples/modal-overlays/modal-overlays.module#ModalOverlaysModule',
   }, {
     path: 'extra-components',
-    loadChildren: './extra-components/extra-components.module#ExtraComponentsModule',
+    loadChildren: './examples/extra-components/extra-components.module#ExtraComponentsModule',
   }, {
     path: 'bootstrap',
-    loadChildren: './bootstrap/bootstrap.module#BootstrapModule',
+    loadChildren: './examples/bootstrap/bootstrap.module#BootstrapModule',
   }, {
     path: 'maps',
-    loadChildren: './maps/maps.module#MapsModule',
+    loadChildren: './examples/maps/maps.module#MapsModule',
   }, {
     path: 'charts',
-    loadChildren: './charts/charts.module#ChartsModule',
+    loadChildren: './examples/charts/charts.module#ChartsModule',
   }, {
     path: 'editors',
-    loadChildren: './editors/editors.module#EditorsModule',
+    loadChildren: './examples/editors/editors.module#EditorsModule',
   }, {
     path: 'forms',
-    loadChildren: './forms/forms.module#FormsModule',
+    loadChildren: './examples/forms/forms.module#FormsModule',
   }, {
     path: 'tables',
-    loadChildren: './tables/tables.module#TablesModule',
+    loadChildren: './examples/tables/tables.module#TablesModule',
   }, {
     path: 'miscellaneous',
-    loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule',
+    loadChildren: './examples/miscellaneous/miscellaneous.module#MiscellaneousModule',
   }, {
     path: '',
     redirectTo: 'dashboard',
