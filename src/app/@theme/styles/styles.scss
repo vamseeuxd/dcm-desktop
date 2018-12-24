@@ -1,18 +1,14 @@
 // themes - our custom or/and out of the box themes
 @import 'themes';
-
 // framework component themes (styles tied to theme variables)
 @import '~@nebular/theme/styles/globals';
 @import '~@nebular/auth/styles/all';
 @import '~@nebular/bootstrap/styles/globals';
 // ...
-
 // global app font size
 @import './font-size';
-
 // loading progress bar theme
 @import './pace.theme';
-
 @import './bootstrap-rtl';
 
 // install the framework and custom global styles
@@ -31,4 +27,10 @@
     border-radius: 50%; // TODO: quickfix for https://github.com/akveo/nebular/issues/275
   }
   @include bootstrap-rtl();
-};
+}
+
+;
+
+.pointer {
+  cursor: pointer;
+}
