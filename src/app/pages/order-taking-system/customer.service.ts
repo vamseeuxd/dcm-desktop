@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
-import {ICustomer} from './customer-card/customer-card.component';
 import {Observable, Subject} from 'rxjs';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CutomerService {
+export class CustomerService {
 
   public readonly newCustomer: ICustomer = {
     id: '',
     name: '',
-    age: 0,
+    dateOfBirth: null,
     gender: '',
     email: '',
     mobile: '',
@@ -19,19 +19,16 @@ export class CutomerService {
     remarks: '',
   };
 
-  public selectedCustomer: Subject<ICustomer> = new Subject<ICustomer>();
-
-  constructor() {
-    this.resetCustomer();
-  }
-
+  public customers$: Subject<ICustomer[]> = new Subject<ICustomer[]>();
+  public selectedCustomer$: Subject<ICustomer> = new Subject<ICustomer>();
+  public selectedCustomer: ICustomer;
   private _customers: ICustomer[] = [
     {
       id: '0',
       'name': 'Schneider',
-      'age': 32,
+      'dateOfBirth': '1986-05-10',
       'gender': 'male',
-      'email': 'undefined.undefined@undefined.co.uk',
+      'email': 'sample_email@gamil.co.uk',
       'mobile': '+1 (813) 410-3929',
       'referrer': 'Allison',
       'address': '950 Plaza Street, Grahamtown, South Carolina, 3620',
@@ -43,9 +40,9 @@ export class CutomerService {
     {
       id: '1',
       'name': 'Martina',
-      'age': 40,
+      'dateOfBirth': '1986-05-10',
       'gender': 'male',
-      'email': 'undefined.undefined@undefined.org',
+      'email': 'sample_email@gamil.org',
       'mobile': '+1 (837) 436-2299',
       'referrer': 'Pena',
       'address': '346 Fane Court, Mooresburg, Connecticut, 9859',
@@ -56,9 +53,9 @@ export class CutomerService {
     {
       id: '2',
       'name': 'Ashlee',
-      'age': 37,
+      'dateOfBirth': '1986-05-10',
       'gender': 'male',
-      'email': 'undefined.undefined@undefined.biz',
+      'email': 'sample_email@gamil.biz',
       'mobile': '+1 (914) 456-3232',
       'referrer': 'Beverly',
       'address': '722 Gaylord Drive, Kipp, Federated States Of Micronesia, 9064',
@@ -69,9 +66,9 @@ export class CutomerService {
     {
       id: '3',
       'name': 'Franklin',
-      'age': 20,
+      'dateOfBirth': '1986-05-10',
       'gender': 'female',
-      'email': 'undefined.undefined@undefined.info',
+      'email': 'sample_email@gamil.info',
       'mobile': '+1 (908) 561-2762',
       'referrer': 'Rachelle',
       'address': '157 Oxford Walk, Groveville, Alabama, 2147',
@@ -83,9 +80,9 @@ export class CutomerService {
     {
       id: '4',
       'name': 'Latonya',
-      'age': 37,
+      'dateOfBirth': '1986-05-10',
       'gender': 'female',
-      'email': 'undefined.undefined@undefined.me',
+      'email': 'sample_email@gamil.me',
       'mobile': '+1 (961) 469-2558',
       'referrer': 'Kerri',
       'address': '392 Lake Place, Freelandville, District Of Columbia, 231',
@@ -96,9 +93,9 @@ export class CutomerService {
     {
       id: '5',
       'name': 'Hatfield',
-      'age': 25,
+      'dateOfBirth': '1986-05-10',
       'gender': 'male',
-      'email': 'undefined.undefined@undefined.com',
+      'email': 'sample_email@gamil.com',
       'mobile': '+1 (846) 462-2917',
       'referrer': 'Shaw',
       'address': '480 Bayview Avenue, Tyhee, Tennessee, 6664',
@@ -109,9 +106,9 @@ export class CutomerService {
     {
       id: '6',
       'name': 'Jeannine',
-      'age': 27,
+      'dateOfBirth': '1986-05-10',
       'gender': 'male',
-      'email': 'undefined.undefined@undefined.name',
+      'email': 'sample_email@gamil.name',
       'mobile': '+1 (887) 437-3428',
       'referrer': 'Carmella',
       'address': '238 Reeve Place, Eastvale, New York, 3138',
@@ -122,9 +119,9 @@ export class CutomerService {
     {
       id: '7',
       'name': 'Oneal',
-      'age': 23,
+      'dateOfBirth': '1986-05-10',
       'gender': 'female',
-      'email': 'undefined.undefined@undefined.biz',
+      'email': 'sample_email@gamil.biz',
       'mobile': '+1 (882) 516-2918',
       'referrer': 'Estelle',
       'address': '927 Herkimer Street, Moscow, California, 5927',
@@ -136,9 +133,9 @@ export class CutomerService {
     {
       id: '8',
       'name': 'Weiss',
-      'age': 20,
+      'dateOfBirth': '1986-05-10',
       'gender': 'female',
-      'email': 'undefined.undefined@undefined.tv',
+      'email': 'sample_email@gamil.tv',
       'mobile': '+1 (854) 422-2070',
       'referrer': 'Gardner',
       'address': '226 Rockwell Place, Bradenville, Texas, 7829',
@@ -149,9 +146,9 @@ export class CutomerService {
     {
       id: '9',
       'name': 'Carolyn',
-      'age': 40,
+      'dateOfBirth': '1986-05-10',
       'gender': 'female',
-      'email': 'undefined.undefined@undefined.net',
+      'email': 'sample_email@gamil.net',
       'mobile': '+1 (863) 581-3395',
       'referrer': 'Ebony',
       'address': '354 Evergreen Avenue, Harold, Oklahoma, 5014',
@@ -160,12 +157,18 @@ export class CutomerService {
     },
   ];
 
-  get customers(): ICustomer[] {
-    return this._customers;
+  constructor() {
+    this.selectedCustomer$.subscribe(value => {
+      this.selectedCustomer = _.clone(value);
+    });
+    setTimeout(() => {
+      this.resetCustomer();
+      this.customers$.next(this._customers);
+    });
   }
 
   public resetCustomer() {
-    this.selectedCustomer.next(this.newCustomer);
+    this.selectedCustomer$.next(this.newCustomer);
   }
 
   public addCustomer(newCustomer: ICustomer): Observable<ICustomer> {
@@ -173,6 +176,7 @@ export class CutomerService {
       if (!this.isDuplicateCustomer(newCustomer, true)) {
         newCustomer.id = this._customers.length.toString();
         this._customers.push(newCustomer);
+        this.customers$.next(this._customers);
         observer.next(JSON.parse(JSON.stringify(newCustomer)));
       } else {
         observer.error('Duplicate Records Exists');
@@ -180,7 +184,19 @@ export class CutomerService {
     });
   }
 
-  public removeCustomer() {
+  public removeCustomer(existingCustomer: ICustomer) {
+    return Observable.create(observer => {
+      for (let i = (this._customers.length - 1); i >= 0; i--) {
+        if (this._customers[i].id === existingCustomer.id) {
+          if (this.selectedCustomer.id === existingCustomer.id) {
+            this.resetCustomer();
+          }
+          this._customers.splice(i, 1);
+        }
+      }
+      this.customers$.next(this._customers);
+      observer.next(JSON.parse(JSON.stringify(existingCustomer)));
+    });
   }
 
   public updateCustomer(existingCustomer: ICustomer): Observable<ICustomer> {
@@ -188,9 +204,13 @@ export class CutomerService {
       if (!this.isDuplicateCustomer(existingCustomer, false)) {
         for (let i = 0; i < this._customers.length; i++) {
           if (this._customers[i].id === existingCustomer.id) {
+            if (this.selectedCustomer.id === existingCustomer.id) {
+              this.selectedCustomer$.next(existingCustomer);
+            }
             this._customers[i] = JSON.parse(JSON.stringify(existingCustomer));
           }
         }
+        this.customers$.next(this._customers);
         observer.next(JSON.parse(JSON.stringify(existingCustomer)));
       } else {
         observer.error('Duplicate Records Exists');
@@ -220,4 +240,16 @@ export class CutomerService {
       return isMobileExists;
     }
   }
+}
+
+export interface ICustomer {
+  id: string;
+  name: string;
+  dateOfBirth: string;
+  gender: string;
+  email: string;
+  mobile: string;
+  referrer: string;
+  address: string;
+  remarks: string;
 }

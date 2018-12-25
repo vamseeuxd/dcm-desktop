@@ -25,3 +25,22 @@
     }
   }
 }
+
+.clear-icon {
+  position: absolute;
+  right: 30px;
+  top: 15px;
+  cursor: pointer;
+}
+
+.delete-icon {
+  position: absolute;
+  top: calc(50% - 7px);
+  right: 20px;
+}
+
+:host {
+  nb-list-item {
+    position: relative;
+  }
+}

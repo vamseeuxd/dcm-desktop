@@ -10,7 +10,6 @@ import {ProductSearchListComponent} from './product-search-list/product-search-l
 import {CustomerCardComponent} from './customer-card/customer-card.component';
 import {ContactsComponent} from './contacts/contacts.component';
 import {AddNewCustomerComponent} from './add-new-customer/add-new-customer.component';
-import {NgPipesModule} from 'ngx-pipes';
 
 @NgModule({
   imports: [
@@ -19,7 +18,6 @@ import {NgPipesModule} from 'ngx-pipes';
     ChartModule,
     LeafletModule,
     ThemeModule,
-    NgPipesModule,
   ],
   declarations: [
     OrderTakingSystemComponent,

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CutomerService} from '../cutomer.service';
+import {CustomerService, ICustomer} from '../customer.service';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 import {NbToastStatus} from '@nebular/theme/components/toastr/model';
 import * as _ from 'lodash';
@@ -11,37 +11,65 @@ import * as _ from 'lodash';
 })
 export class CustomerCardComponent {
 
-  searchText = '';
-  private selectedCustomer: ICustomer;
+  public searchText = '';
+  public showBusyIndicator = false;
+  public selectedCustomer: ICustomer;
+  public customers: ICustomer[] = [];
 
   constructor(
-    private customerService: CutomerService,
+    public customerService: CustomerService,
+    private toasterService: NbToastrService,
   ) {
-    this.customerService.selectedCustomer.subscribe(value => {
+    this.customerService.selectedCustomer$.subscribe(value => {
       this.selectedCustomer = _.clone(value);
+    });
+    this.customerService.customers$.subscribe(value => {
+      this.customers = _.clone(value);
     });
   }
 
   onCustomerSave($event: ICustomer) {
-    this.searchText = '';
+    /*this.searchText = '';
     setTimeout(() => {
       this.searchText = $event.mobile;
-    });
+    });*/
   }
 
   updateSelectedCustomer(customer: ICustomer) {
-    this.customerService.selectedCustomer.next(customer);
+    this.customerService.selectedCustomer$.next(customer);
   }
-}
 
-export interface ICustomer {
-  id: string;
-  name: string;
-  age: number;
-  gender: string;
-  email: string;
-  mobile: string;
-  referrer: string;
-  address: string;
-  remarks: string;
+  deleteCustomer(customer: ICustomer) {
+    const isConformed = confirm('Are you sure! Do you want to delete?');
+    if (isConformed) {
+      this.showBusyIndicator = true;
+      this.customerService.removeCustomer(customer).subscribe(value => {
+        this.toasterService.show(
+          'Customer deleted successfully',
+          `Success`,
+          {
+            'status': NbToastStatus.SUCCESS,
+            'destroyByClick': true,
+            'duration': 2000,
+            'hasIcon': true,
+            'position': NbGlobalPhysicalPosition.TOP_RIGHT,
+            'preventDuplicates': false,
+          });
+        this.showBusyIndicator = false;
+      }, error => {
+        this.toasterService.show(
+          error,
+          `Error`,
+          {
+            'status': NbToastStatus.DANGER,
+            'destroyByClick': true,
+            'duration': 2000,
+            'hasIcon': true,
+            'position': NbGlobalPhysicalPosition.TOP_RIGHT,
+            'preventDuplicates': false,
+          });
+        this.showBusyIndicator = false;
+      });
+    }
+  }
 }

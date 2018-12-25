@@ -1,9 +1,9 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {CutomerService} from '../cutomer.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {CustomerService, ICustomer} from '../customer.service';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
 import {NbToastStatus} from '@nebular/theme/components/toastr/model';
-import {ICustomer} from '../customer-card/customer-card.component';
 import * as _ from 'lodash';
+import set = Reflect.set;
 
 @Component({
   selector: 'ngx-add-new-customer',
@@ -13,16 +13,18 @@ import * as _ from 'lodash';
 export class AddNewCustomerComponent implements OnInit {
   @Output() onSave: EventEmitter<ICustomer> = new EventEmitter<ICustomer>();
   @Output() onReset: EventEmitter<ICustomer> = new EventEmitter<ICustomer>();
+  @Input() showBusyIndicator = false;
+  @Output() showBusyIndicatorChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   customer: ICustomer = _.clone(this.customerService.newCustomer);
   defaultCustomer: ICustomer = _.clone(this.customerService.newCustomer);
   refreshForm = true;
 
   constructor(
-    private customerService: CutomerService,
-    private toastrService: NbToastrService,
+    private customerService: CustomerService,
+    private toasterService: NbToastrService,
   ) {
-    this.customerService.selectedCustomer.subscribe(value => {
+    this.customerService.selectedCustomer$.subscribe(value => {
       this.customer = _.clone(value);
       this.defaultCustomer = _.clone(value);
     });
@@ -50,42 +52,54 @@ export class AddNewCustomerComponent implements OnInit {
     }
   }
 
+  showBusyLoader(canIshow: boolean) {
+    this.showBusyIndicator = canIshow;
+    this.showBusyIndicatorChange.emit(this.showBusyIndicator);
+  }
+
   updateCustomer() {
-    this.customerService.updateCustomer(JSON.parse(JSON.stringify(this.customer))).subscribe(success => {
-      this.resetCustomer();
-      this.toastrService.show(
-        'Customer updated successfully',
-        `Success`,
-        {
-          'status': NbToastStatus.SUCCESS,
-          'destroyByClick': true,
-          'duration': 2000,
-          'hasIcon': true,
-          'position': NbGlobalPhysicalPosition.TOP_RIGHT,
-          'preventDuplicates': false,
-        });
-      this.customerService.selectedCustomer.next(_.clone(success));
-      this.onSave.emit(success);
-      this.refreshCustomerForm();
-    }, error => {
-      this.toastrService.show(
-        error,
-        `Error`,
-        {
-          'status': NbToastStatus.DANGER,
-          'destroyByClick': true,
-          'duration': 2000,
-          'hasIcon': true,
-          'position': NbGlobalPhysicalPosition.TOP_RIGHT,
-          'preventDuplicates': false,
-        });
-    });
+    const isConformed = confirm('Are you sure! Do you want to update?');
+    if (isConformed) {
+      this.showBusyLoader(true);
+      this.customerService.updateCustomer(JSON.parse(JSON.stringify(this.customer))).subscribe(success => {
+        this.resetCustomer();
+        this.toasterService.show(
+          'Customer updated successfully',
+          `Success`,
+          {
+            'status': NbToastStatus.SUCCESS,
+            'destroyByClick': true,
+            'duration': 2000,
+            'hasIcon': true,
+            'position': NbGlobalPhysicalPosition.TOP_RIGHT,
+            'preventDuplicates': false,
+          });
+        this.customerService.selectedCustomer$.next(_.clone(success));
+        this.onSave.emit(success);
+        this.refreshCustomerForm();
+        this.showBusyLoader(false);
+      }, error => {
+        this.toasterService.show(
+          error,
+          `Error`,
+          {
+            'status': NbToastStatus.DANGER,
+            'destroyByClick': true,
+            'duration': 2000,
+            'hasIcon': true,
+            'position': NbGlobalPhysicalPosition.TOP_RIGHT,
+            'preventDuplicates': false,
+          });
+        this.showBusyLoader(false);
+      });
+    }
   }
 
   addCustomer() {
+    this.showBusyLoader(true);
     this.customerService.addCustomer(JSON.parse(JSON.stringify(this.customer))).subscribe(success => {
       this.resetCustomer();
-      this.toastrService.show(
+      this.toasterService.show(
         'Customer added successfully',
         `Success`,
         {
@@ -96,11 +110,12 @@ export class AddNewCustomerComponent implements OnInit {
           'position': NbGlobalPhysicalPosition.TOP_RIGHT,
           'preventDuplicates': false,
         });
-      this.customerService.selectedCustomer.next(_.clone(success));
+      this.customerService.selectedCustomer$.next(_.clone(success));
       this.onSave.emit(success);
       this.refreshCustomerForm();
+      this.showBusyLoader(false);
     }, error => {
-      this.toastrService.show(
+      this.toasterService.show(
         error,
         `Error`,
         {
@@ -111,6 +126,7 @@ export class AddNewCustomerComponent implements OnInit {
           'position': NbGlobalPhysicalPosition.TOP_RIGHT,
           'preventDuplicates': false,
         });
+      this.showBusyLoader(false);
     });
   }
 

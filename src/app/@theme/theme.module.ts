@@ -68,9 +68,15 @@ import {
 import {DEFAULT_THEME} from './styles/theme.default';
 import {COSMIC_THEME} from './styles/theme.cosmic';
 import {CORPORATE_THEME} from './styles/theme.corporate';
+import {NgPipesModule} from 'ngx-pipes';
+import {NgxMaskModule} from 'ngx-mask';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
+const UTILITY_MODULES = [
+  NgPipesModule,
+  NgxMaskModule,
+];
 const NB_MODULES = [
   NbCardModule,
   NbLayoutModule,
@@ -156,8 +162,8 @@ const NB_THEME_PROVIDERS = [
 ];
 
 @NgModule({
-  imports: [...BASE_MODULES, ...NB_MODULES],
-  exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
+  imports: [...BASE_MODULES, ...NB_MODULES, ...UTILITY_MODULES],
+  exports: [...BASE_MODULES, ...NB_MODULES, ...UTILITY_MODULES, ...COMPONENTS, ...PIPES],
   declarations: [...COMPONENTS, ...PIPES],
   entryComponents: [...ENTRY_COMPONENTS],
 })
