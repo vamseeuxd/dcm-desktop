@@ -15,6 +15,9 @@ import {AppRoutingModule} from './app-routing.module';
 import {ThemeModule} from './@theme/theme.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgxMaskModule} from 'ngx-mask';
+import {environment} from '../environments/environment';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +31,8 @@ import {NgxMaskModule} from 'ngx-mask';
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
     NgxMaskModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase, 'my-app-name'),
+    AngularFireDatabaseModule,
   ],
   bootstrap: [AppComponent],
   providers: [

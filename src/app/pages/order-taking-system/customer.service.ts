@@ -1,11 +1,16 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import * as _ from 'lodash';
+import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerService {
+
+  private itemsRef: AngularFireList<ICustomer>;
+  private items: Observable<ICustomer[]>;
 
   public readonly newCustomer: ICustomer = {
     id: '',
@@ -157,13 +162,23 @@ export class CustomerService {
     },
   ];
 
-  constructor() {
+  constructor(
+    private db: AngularFireDatabase,
+  ) {
+
+    this.itemsRef = db.list('customers');
+    this.items = this.itemsRef.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({id: c.payload.key, ...c.payload.val()})),
+      ),
+    );
+    this.items.subscribe(value => {
+      this._customers = _.clone(value);
+      this.customers$.next(_.clone(value));
+    });
+
     this.selectedCustomer$.subscribe(value => {
       this.selectedCustomer = _.clone(value);
-    });
-    setTimeout(() => {
-      this.resetCustomer();
-      this.customers$.next(this._customers);
     });
   }
 
@@ -174,10 +189,8 @@ export class CustomerService {
   public addCustomer(newCustomer: ICustomer): Observable<ICustomer> {
     return Observable.create(observer => {
       if (!this.isDuplicateCustomer(newCustomer, true)) {
-        newCustomer.id = this._customers.length.toString();
-        this._customers.push(newCustomer);
-        this.customers$.next(this._customers);
-        observer.next(JSON.parse(JSON.stringify(newCustomer)));
+        delete newCustomer.id;
+        this.itemsRef.push(newCustomer).then(value => observer.next(_.clone(newCustomer)), reason => observer.error(JSON.stringify(reason)));
       } else {
         observer.error('Duplicate Records Exists');
       }
