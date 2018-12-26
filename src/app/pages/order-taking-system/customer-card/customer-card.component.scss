@@ -24,23 +24,28 @@
       }
     }
   }
-}
 
-.clear-icon {
-  position: absolute;
-  right: 30px;
-  top: 15px;
-  cursor: pointer;
-}
+  nb-user /deep/ {
+    .info-container {
+      @include nb-ltr(margin-left, 0.875rem);
+      @include nb-rtl(margin-right, 0.875rem);
+    }
 
-.delete-icon {
-  position: absolute;
-  top: calc(50% - 7px);
-  right: 20px;
-}
+    .user-name {
+      font-family: nb-theme(font-secondary);
+      font-weight: nb-theme(font-weight-bold);
+      color: nb-theme(color-fg-heading);
+      font-size: 1.25rem;
 
-:host {
-  nb-list-item {
-    position: relative;
+      @include nb-for-theme(cosmic) {
+        font-weight: nb-theme(font-weight-bolder);
+      }
+    }
+
+    .user-title {
+      font-size: 0.875rem;
+      font-weight: nb-theme(font-weight-light);
+      text-transform: uppercase;
+    }
   }
 }

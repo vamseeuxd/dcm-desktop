@@ -8,7 +8,7 @@ import {FormsModule} from '@angular/forms';
 import {QuickProductSearchComponent} from './quick-product-search/quick-product-search.component';
 import {ProductSearchListComponent} from './product-search-list/product-search-list.component';
 import {CustomerCardComponent} from './customer-card/customer-card.component';
-import {ContactsComponent} from './contacts/contacts.component';
+import {CustomersListComponent} from './contacts/customers-list.component';
 import {AddNewCustomerComponent} from './add-new-customer/add-new-customer.component';
 
 @NgModule({
@@ -24,7 +24,7 @@ import {AddNewCustomerComponent} from './add-new-customer/add-new-customer.compo
     QuickProductSearchComponent,
     ProductSearchListComponent,
     CustomerCardComponent,
-    ContactsComponent,
+    CustomersListComponent,
     AddNewCustomerComponent,
   ],
   exports: [
@@ -32,14 +32,14 @@ import {AddNewCustomerComponent} from './add-new-customer/add-new-customer.compo
     QuickProductSearchComponent,
     ProductSearchListComponent,
     CustomerCardComponent,
-    ContactsComponent,
+    CustomersListComponent,
   ],
   entryComponents: [
     OrderTakingSystemComponent,
     QuickProductSearchComponent,
     ProductSearchListComponent,
     CustomerCardComponent,
-    ContactsComponent,
+    CustomersListComponent,
   ],
   providers: [],
 })

@@ -1,0 +1,17 @@
+<input [(ngModel)]="searchText"
+       class="form-control mb-1"
+       placeholder="Search by mobile"
+       type="text">
+<i (click)="searchText = ''" class="fa fa-times clear-icon"></i>
+<nb-list class="border-light border" style="overflow-y: auto;max-height: 315px;">
+  <nb-list-item *ngFor="let customer of (customers | filterBy: ['mobile']: searchText)"
+                class="pointer">
+    <nb-user [badgeText]="customer.gender|uppercase"
+             (click)="updateSelectedCustomer(customer)"
+             [name]="customer.name"
+             [title]="customer.mobile"
+             badgePosition="bottom start"
+             size="large"></nb-user>
+    <i (click)="deleteCustomer(customer)" class="fa fa-trash delete-icon text-danger"></i>
+  </nb-list-item>
+</nb-list>
