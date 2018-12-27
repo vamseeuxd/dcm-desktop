@@ -55,6 +55,7 @@ export class CustomersListComponent {
           });
         this.showBusyIndicator = false;
         this.showBusyIndicatorChange.emit(this.showBusyIndicator);
+        this.customerService.selectedCustomer$.next(this.customerService.newCustomer);
       }, error => {
         this.toasterService.show(
           error,

@@ -97,7 +97,7 @@ export class AddNewCustomerComponent implements OnInit {
 
   addCustomer() {
     this.showBusyLoader(true);
-    this.customerService.addCustomer(JSON.parse(JSON.stringify(this.customer))).subscribe(success => {
+    this.customerService.addCustomer(_.clone(this.customer)).subscribe(success => {
       this.resetCustomer();
       this.toasterService.show(
         'Customer added successfully',

@@ -190,7 +190,12 @@ export class CustomerService {
     return Observable.create(observer => {
       if (!this.isDuplicateCustomer(newCustomer, true)) {
         delete newCustomer.id;
-        this.itemsRef.push(newCustomer).then(value => observer.next(_.clone(newCustomer)), reason => observer.error(JSON.stringify(reason)));
+        this.itemsRef.push(newCustomer).then(value => {
+            newCustomer.id = value.key;
+            observer.next(_.clone(newCustomer));
+          },
+          reason => observer.error(JSON.stringify(reason)),
+        );
       } else {
         observer.error('Duplicate Records Exists');
       }
@@ -199,32 +204,25 @@ export class CustomerService {
 
   public removeCustomer(existingCustomer: ICustomer) {
     return Observable.create(observer => {
-      for (let i = (this._customers.length - 1); i >= 0; i--) {
-        if (this._customers[i].id === existingCustomer.id) {
-          if (this.selectedCustomer.id === existingCustomer.id) {
-            this.resetCustomer();
-          }
-          this._customers.splice(i, 1);
-        }
-      }
-      this.customers$.next(this._customers);
-      observer.next(JSON.parse(JSON.stringify(existingCustomer)));
+      this.itemsRef.remove(existingCustomer.id).then(value => {
+        observer.next(_.clone(_.clone(existingCustomer)));
+      }, reason => {
+        observer.error(JSON.stringify(reason));
+      });
     });
   }
 
   public updateCustomer(existingCustomer: ICustomer): Observable<ICustomer> {
     return Observable.create(observer => {
       if (!this.isDuplicateCustomer(existingCustomer, false)) {
-        for (let i = 0; i < this._customers.length; i++) {
-          if (this._customers[i].id === existingCustomer.id) {
-            if (this.selectedCustomer.id === existingCustomer.id) {
-              this.selectedCustomer$.next(existingCustomer);
-            }
-            this._customers[i] = JSON.parse(JSON.stringify(existingCustomer));
-          }
-        }
-        this.customers$.next(this._customers);
-        observer.next(JSON.parse(JSON.stringify(existingCustomer)));
+        const key = _.clone(existingCustomer.id);
+        delete existingCustomer.id;
+        this.itemsRef.update(key, existingCustomer).then(value => {
+          existingCustomer.id = key;
+          observer.next(_.clone(_.clone(existingCustomer)));
+        }, reason => {
+          observer.error(JSON.stringify(reason));
+        });
       } else {
         observer.error('Duplicate Records Exists');
       }
