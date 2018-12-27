@@ -5,11 +5,11 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {ThemeModule} from '../../@theme/theme.module';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {QuickProductSearchComponent} from './quick-product-search/quick-product-search.component';
+import {QuickProductSearchComponent} from './product-search-list/quick-product-search/quick-product-search.component';
 import {ProductSearchListComponent} from './product-search-list/product-search-list.component';
 import {CustomerCardComponent} from './customer-card/customer-card.component';
-import {CustomersListComponent} from './contacts/customers-list.component';
-import {AddNewCustomerComponent} from './add-new-customer/add-new-customer.component';
+import {CustomersListComponent} from './customer-card/customer-list/customers-list.component';
+import {AddNewCustomerComponent} from './customer-card/add-new-customer/add-new-customer.component';
 
 @NgModule({
   imports: [

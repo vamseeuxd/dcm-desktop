@@ -8,7 +8,7 @@ describe('QuickProductSearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [QuickProductSearchComponent]
+      declarations: [QuickProductSearchComponent],
     })
       .compileComponents();
   }));

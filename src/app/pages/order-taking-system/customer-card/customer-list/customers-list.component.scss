@@ -1,5 +1,5 @@
-@import '../../../@theme/styles/themes';
-@import '~@nebular/bootstrap/styles/hero-buttons';
+@import '../../../../@theme/styles/themes';
+@import '../../../../../../node_modules/@nebular/bootstrap/styles/hero-buttons';
 
 @include nb-install-component() {
   nb-tabset {

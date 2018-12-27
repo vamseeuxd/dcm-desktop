@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
-import {CustomerService, ICustomer} from '../customer.service';
 import * as _ from 'lodash';
 import {NbToastStatus} from '@nebular/theme/components/toastr/model';
+import {CustomerService, ICustomer} from '../customer.service';
 
 
 @Component({

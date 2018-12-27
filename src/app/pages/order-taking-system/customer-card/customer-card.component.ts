@@ -1,8 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CustomerService, ICustomer} from '../customer.service';
-import {NbGlobalPhysicalPosition, NbToastrService} from '@nebular/theme';
-import {NbToastStatus} from '@nebular/theme/components/toastr/model';
-import * as _ from 'lodash';
+import {ICustomer} from './customer.service';
 
 @Component({
   selector: 'ngx-customer-card',
@@ -14,9 +11,5 @@ export class CustomerCardComponent {
   public selectedCustomer: ICustomer;
 
   onCustomerSave($event: ICustomer) {
-    /*this.searchText = '';
-    setTimeout(() => {
-      this.searchText = $event.mobile;
-    });*/
   }
 }
