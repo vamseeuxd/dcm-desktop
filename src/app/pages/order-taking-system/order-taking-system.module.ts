@@ -10,6 +10,8 @@ import {ProductSearchListComponent} from './product-search-list/product-search-l
 import {CustomerCardComponent} from './customer-card/customer-card.component';
 import {CustomersListComponent} from './customer-card/customer-list/customers-list.component';
 import {AddNewCustomerComponent} from './customer-card/add-new-customer/add-new-customer.component';
+import {ShopingCartComponent} from './shoping-cart/shoping-cart.component';
+import {Ng2SmartTableModule} from 'ng2-smart-table';
 
 @NgModule({
   imports: [
@@ -18,6 +20,7 @@ import {AddNewCustomerComponent} from './customer-card/add-new-customer/add-new-
     ChartModule,
     LeafletModule,
     ThemeModule,
+    Ng2SmartTableModule,
   ],
   declarations: [
     OrderTakingSystemComponent,
@@ -26,6 +29,7 @@ import {AddNewCustomerComponent} from './customer-card/add-new-customer/add-new-
     CustomerCardComponent,
     CustomersListComponent,
     AddNewCustomerComponent,
+    ShopingCartComponent,
   ],
   exports: [
     OrderTakingSystemComponent,

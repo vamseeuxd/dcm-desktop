@@ -1,0 +1,67 @@
+<nb-accordion>
+  <nb-accordion-item #quickProductAccordion [collapsed]="false">
+    <nb-accordion-item-header>Shopping Cart & Billing Details</nb-accordion-item-header>
+    <nb-accordion-item-body [nbSpinner]="showBusyIndicator" nbSpinnerMessage="Please Wait..." nbSpinnerSize="xxlarge">
+
+
+      <nb-card _nghost-c26="" class="inline-form-card">
+        <nb-card-header>Shopping Cart ({{source.count()}} Products Selected)</nb-card-header>
+        <nb-card-body>
+          <ng2-smart-table (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="updateTotals()"
+                           [settings]="settings"
+                           [source]="source"></ng2-smart-table>
+        </nb-card-body>
+      </nb-card>
+
+
+      <nb-card _nghost-c26="" class="inline-form-card">
+        <nb-card-header>
+          Billing Details
+          <label class="text-muted mr-5 ml-3">Total Bill Amount : {{totalBillAmount}},</label>
+          <label class="text-muted mr-5">Discount Amount : {{discountAmount}},</label>
+          <label class="text-muted mr-5">Amount Paid: {{amountPaid}},</label>
+          <label class="text-muted">Amount Due: {{totalBillAmount - amountPaid}}</label>
+        </nb-card-header>
+        <nb-card-body>
+          <form class="form-row">
+
+            <div class="col-4">
+              <div class="form-group">
+                <label>Discount</label>
+                <div class="input-group">
+                  <input class="form-control" type="text">
+                  <span class="input-group-append">
+                    <button class="btn btn-primary input-group-text"> Discount </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-4">
+              <div class="form-group">
+                <label>Amount Paid</label>
+                <input [(ngModel)]="amountPaid" class="form-control" name="amountPaid" type="number">
+              </div>
+            </div>
+
+            <div class="col-4">
+              <div class="form-group">
+                <label>Amount Due</label>
+                <input [value]="totalBillAmount-amountPaid" class="form-control" disabled type="number">
+              </div>
+            </div>
+
+          </form>
+        </nb-card-body>
+      </nb-card>
+
+
+      <div class="mt-3">
+        <button class="btn-info btn-outline mr-3 pointer" nbbutton outline>Print Preview</button>
+        <button class="btn-primary btn-outline mr-3 pointer" nbbutton outline>Print</button>
+        <button class="btn-danger btn-outline mr-3 pointer" nbbutton outline>Cancel Order</button>
+        <button class="btn-success btn-outline mr-3 pointer" nbbutton outline>Check-out</button>
+      </div>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>
