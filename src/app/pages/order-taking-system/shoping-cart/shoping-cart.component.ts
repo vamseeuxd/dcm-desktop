@@ -63,7 +63,6 @@ export class ShopingCartComponent implements OnInit {
       const mappedData = OrderItems.map((orderItem: IOrderItem) => {
         return {productName: orderItem.productName, price: orderItem.productModifiedPrice, data: orderItem};
       });
-      console.log(mappedData);
       this.source.load(mappedData).then(() => {
         this.updateTotals();
       });

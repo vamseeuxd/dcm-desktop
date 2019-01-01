@@ -1,6 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {NgbTypeaheadSelectItemEvent} from '@ng-bootstrap/ng-bootstrap';
 import {NbToastrService} from '@nebular/theme';
+import {OrderService} from './shoping-cart/order.service';
 
 @Component({
   selector: 'ngx-order-taking-system',
@@ -12,7 +13,10 @@ export class OrderTakingSystemComponent {
   allProducts: { id: string, label: string }[] = [];
   quickProducts: { id: string, label: string }[] = [];
 
-  constructor(private toastrService: NbToastrService) {
+  constructor(
+    private toastService: NbToastrService,
+    private orderService: OrderService,
+  ) {
     this.addDummyProducts();
   }
 
@@ -32,7 +36,8 @@ export class OrderTakingSystemComponent {
   }
 
   onQuickProductSelect($event: { id: string, label: string }) {
-    this.toastrService.show(
+    this.orderService.addItem({productName: $event.label, productModifiedPrice: 100, productActualPrice: 100});
+    this.toastService.show(
       'Product Added To Cart',
       $event.label + ' is added to Cart');
   }
