@@ -17,12 +17,14 @@
 
       <nb-card _nghost-c26="" class="inline-form-card">
         <nb-card-header>
-          Billing Details
-          <label class="text-muted mr-5 ml-3">Total without Discount : {{bill.totalWithOutDiscount}},</label>
-          <label class="text-muted mr-5 ml-3">Total with Discount : {{bill.totalWithDiscount}},</label>
-          <label class="text-muted mr-5">Discount Amount : {{bill.discountAmount}},</label>
-          <label class="text-muted mr-5">Amount Paid: {{bill.paid}},</label>
-          <label class="text-dark font-w-bold">Amount Due: {{bill.due}}</label>
+          <p>Billing Details</p>
+          <label class="bill-details-label text-muted mr-5 ml-3">Total without Discount : {{bill.totalWithOutDiscount}}
+            ,</label>
+          <label class="bill-details-label text-muted mr-5 ml-3">Total with Discount : {{bill.totalWithDiscount}}
+            ,</label>
+          <label class="bill-details-label text-muted mr-5">Discount Amount : {{bill.discountAmount}},</label>
+          <label class="bill-details-label text-muted mr-5">Amount Paid: {{bill.paid}},</label>
+          <label class="bill-details-label text-dark font-w-bold">Amount Due: {{bill.due}}</label>
         </nb-card-header>
         <nb-card-body>
           <form class="form-row">
@@ -30,8 +32,8 @@
             <div class="col-6">
               <div class="form-group">
                 <label>Discount</label>
-                <input (ngModelChange)="updateTotalAmount()"
-                       [(ngModel)]="bill.discountPercentage"
+                <input (ngModelChange)="updateDiscountAmount($event)"
+                       [ngModel]="bill.discountPercentage"
                        class="form-control"
                        mask="000"
                        name="discountAmount"
@@ -44,7 +46,7 @@
               <div class="form-group">
                 <label>Amount Paid</label>
                 <!--ngxLimitToMax-->
-                <input (ngModelChange)="updateTotalAmount()"
+                <input (ngModelChange)="updatePaidAmount($event)"
                        [(ngModel)]="bill.paid"
                        class="form-control"
                        name="amountPaid"

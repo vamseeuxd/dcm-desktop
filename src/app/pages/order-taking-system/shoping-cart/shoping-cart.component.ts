@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LocalDataSource} from 'ng2-smart-table';
 import set = Reflect.set;
+import {IOrder, IOrderItem, OrderService} from './order.service';
 
 @Component({
   selector: 'ngx-shoping-cart',
@@ -56,26 +57,35 @@ export class ShopingCartComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
 
 
-  constructor() {
-    this.source.load([
-      {productName: 'Product 1', price: 100},
-      {productName: 'Product 2', price: 100},
-      {productName: 'Product 3', price: 100},
-      {productName: 'Product 4', price: 100},
-      {productName: 'Product 5', price: 100},
-    ]).then(() => {
-      this.updateTotals();
+  constructor(private orderService: OrderService) {
+
+    this.orderService.OrderItems$.subscribe((OrderItems: IOrderItem[]) => {
+      const mappedData = OrderItems.map((orderItem: IOrderItem) => {
+        return {productName: orderItem.productName, price: orderItem.productModifiedPrice, data: orderItem};
+      });
+      console.log(mappedData);
+      this.source.load(mappedData).then(() => {
+        this.updateTotals();
+      });
     });
+
+    this.orderService.order$.subscribe((value: IOrder) => {
+      this.bill.totalWithOutDiscount = value.amountTotal;
+      this.bill.totalWithDiscount = value.amountAfterDiscount;
+      this.bill.discountPercentage = value.discount;
+      this.bill.discountAmount = value.discountAmount;
+      this.bill.paid = value.amountPaid;
+      this.bill.due = value.amountDue;
+    });
+
+    this.orderService.addItem({productName: 'Product 1', productModifiedPrice: 100, productActualPrice: 100});
+    this.orderService.addItem({productName: 'Product 2', productModifiedPrice: 200, productActualPrice: 200});
+    this.orderService.addItem({productName: 'Product 3', productModifiedPrice: 300, productActualPrice: 300});
+    this.orderService.addItem({productName: 'Product 4', productModifiedPrice: 400, productActualPrice: 400});
+    this.orderService.addItem({productName: 'Product 5', productModifiedPrice: 500, productActualPrice: 500});
   }
 
   updateTotalAmount() {
-    if (this.bill.discountPercentage > 0) {
-      this.bill.discountAmount = ((this.bill.discountPercentage / 100) * this.bill.totalWithOutDiscount);
-      this.bill.totalWithDiscount = this.bill.totalWithOutDiscount - this.bill.discountAmount;
-    } else {
-      this.bill.totalWithDiscount = this.bill.totalWithOutDiscount;
-    }
-    this.bill.due = this.bill.totalWithDiscount - this.bill.paid;
   }
 
   ngOnInit() {
@@ -94,7 +104,7 @@ export class ShopingCartComponent implements OnInit {
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       event.confirm.resolve();
-      this.updateTotals();
+      this.orderService.deleteItem(event.data.data);
     } else {
       event.confirm.reject();
     }
@@ -103,9 +113,20 @@ export class ShopingCartComponent implements OnInit {
   onEditConfirm(event) {
     if (window.confirm('Are you sure you want to Edit Price?')) {
       event.confirm.resolve();
-      this.updateTotals();
+      setTimeout(() => {
+        event.newData.data.productModifiedPrice = Number(event.newData.price);
+        this.orderService.updateItem(event.newData.data);
+      });
     } else {
       event.confirm.reject();
     }
+  }
+
+  updateDiscountAmount($event) {
+    this.orderService.updateDiscountAmount($event);
+  }
+
+  updatePaidAmount($event) {
+    this.orderService.updatePaidAmount($event);
   }
 }

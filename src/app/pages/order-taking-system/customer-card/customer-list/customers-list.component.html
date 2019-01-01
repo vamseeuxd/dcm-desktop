@@ -12,8 +12,8 @@
              [title]="customer.mobile"
              badgePosition="bottom start"
              size="large"></nb-user>-->
-    <label>{{customer.name}}</label>
-    <label>{{customer.mobile}}</label>
+    <label class="d-block">{{customer.name}}</label>
+    <label class="d-block">{{customer.mobile}}</label>
     <!--<label>{{customer.gender|uppercase}}</label>-->
     <i (click)="deleteCustomer(customer,$event)" class="fa fa-trash delete-icon text-danger"></i>
   </nb-list-item>
