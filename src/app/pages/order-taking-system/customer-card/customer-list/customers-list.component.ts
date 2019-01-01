@@ -36,7 +36,8 @@ export class CustomersListComponent {
     this.customerService.selectedCustomer$.next(customer);
   }
 
-  deleteCustomer(customer: ICustomer) {
+  deleteCustomer(customer: ICustomer, $event) {
+    $event.stopImmediatePropagation();
     const isConformed = confirm('Are you sure! Do you want to delete?');
     if (isConformed) {
       this.showBusyIndicator = true;

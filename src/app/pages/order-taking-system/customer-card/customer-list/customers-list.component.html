@@ -5,13 +5,16 @@
 <i (click)="searchText = ''" class="fa fa-times clear-icon"></i>
 <nb-list class="border-light border" style="overflow-y: auto;max-height: 315px;">
   <nb-list-item *ngFor="let customer of (customers | filterBy: ['mobile']: searchText)"
-                class="pointer">
-    <nb-user [badgeText]="customer.gender|uppercase"
+                class="pointer" (click)="updateSelectedCustomer(customer)">
+    <!--<nb-user [badgeText]="customer.gender|uppercase"
              (click)="updateSelectedCustomer(customer)"
              [name]="customer.name"
              [title]="customer.mobile"
              badgePosition="bottom start"
-             size="large"></nb-user>
-    <i (click)="deleteCustomer(customer)" class="fa fa-trash delete-icon text-danger"></i>
+             size="large"></nb-user>-->
+    <label>{{customer.name}}</label>
+    <label>{{customer.mobile}}</label>
+    <!--<label>{{customer.gender|uppercase}}</label>-->
+    <i (click)="deleteCustomer(customer,$event)" class="fa fa-trash delete-icon text-danger"></i>
   </nb-list-item>
 </nb-list>
