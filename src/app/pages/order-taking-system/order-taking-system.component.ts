@@ -39,6 +39,8 @@ export class OrderTakingSystemComponent {
     this.orderService.addItem({productName: $event.label, productModifiedPrice: 100, productActualPrice: 100});
     this.toastService.show(
       'Product Added To Cart',
-      $event.label + ' is added to Cart');
+      $event.label + ' is added to Cart',
+      {icon: 'fas fa-cart-plus'}
+    );
   }
 }
