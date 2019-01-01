@@ -70,6 +70,7 @@ import {COSMIC_THEME} from './styles/theme.cosmic';
 import {CORPORATE_THEME} from './styles/theme.corporate';
 import {NgPipesModule} from 'ngx-pipes';
 import {NgxMaskModule} from 'ngx-mask';
+import {LimitToMaxDirective} from '../pipes/limit-to-max.directive';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -128,6 +129,7 @@ const COMPONENTS = [
   SampleLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  LimitToMaxDirective,
 ];
 
 const ENTRY_COMPONENTS = [
