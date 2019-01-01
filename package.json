@@ -20,6 +20,7 @@
     "start1": "ng serve --host 192.168.1.5 --port 4200 --prod --aot",
     "start": "ng serve",
     "build": "ng build",
+    "deploy": "firebase deploy",
     "build:prod": "npm run build -- --prod --aot",
     "test": "ng test",
     "test:coverage": "rimraf coverage && npm run test -- --code-coverage",
