@@ -18,7 +18,7 @@
     "ng": "ng",
     "conventional-changelog": "conventional-changelog",
     "start1": "ng serve --host 192.168.1.5 --port 4200 --prod --aot",
-    "start": "ng serve",
+    "start": "ng serve --port 4211 --o",
     "build": "ng build",
     "deploy": "firebase deploy",
     "build:prod": "npm run build -- --prod --aot",
