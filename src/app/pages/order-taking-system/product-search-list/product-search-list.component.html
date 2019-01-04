@@ -2,7 +2,12 @@
   <nb-accordion-item #quickProductAccordion
                      (collapsedChange)="setQuickSearchFocus()"
                      [collapsed]="false">
-    <nb-accordion-item-header>Quick List</nb-accordion-item-header>
+    <nb-accordion-item-header>
+      Quick List
+      <button (click)="manageProducts($event,productManagerDialogRef)" class="btn-demo btn-primary btn-outline ml-3"
+              nbbutton outline>Manage Products
+      </button>
+    </nb-accordion-item-header>
     <nb-accordion-item-body>
 
       <ngx-quick-product-search #quickProductSearch
@@ -33,3 +38,8 @@
     </nb-accordion-item-body>
   </nb-accordion-item>
 </nb-accordion>
+
+
+<ng-template #productManagerDialogRef let-data let-ref="productManagerDialogRef">
+  <ngx-product-manager></ngx-product-manager>
+</ng-template>

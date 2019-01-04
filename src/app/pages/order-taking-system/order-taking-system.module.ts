@@ -12,6 +12,7 @@ import {CustomersListComponent} from './customer-card/customer-list/customers-li
 import {AddNewCustomerComponent} from './customer-card/add-new-customer/add-new-customer.component';
 import {ShopingCartComponent} from './shoping-cart/shoping-cart.component';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
+import {ProductManagerComponent} from './product-search-list/product-manager/product-manager.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
     CustomersListComponent,
     AddNewCustomerComponent,
     ShopingCartComponent,
+    ProductManagerComponent,
   ],
   exports: [
     OrderTakingSystemComponent,
@@ -37,6 +39,7 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
     ProductSearchListComponent,
     CustomerCardComponent,
     CustomersListComponent,
+    ProductManagerComponent,
   ],
   entryComponents: [
     OrderTakingSystemComponent,
@@ -44,6 +47,7 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
     ProductSearchListComponent,
     CustomerCardComponent,
     CustomersListComponent,
+    ProductManagerComponent,
   ],
   providers: [],
 })

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {NbToastrService} from '@nebular/theme';
+import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {NgbTypeaheadSelectItemEvent} from '@ng-bootstrap/ng-bootstrap';
 
 // @ts-ignore
@@ -16,6 +16,9 @@ export class ProductSearchListComponent {
   @Input() allProducts: { id: string, label: string }[] = [];
   @Input() quickProducts: { id: string, label: string }[] = [];
 
+  constructor(private dialogService: NbDialogService) {
+  }
+
   onQuickProductSelect($event: { id: string, label: string }) {
     this.productSelect.emit($event);
   }
@@ -26,4 +29,13 @@ export class ProductSearchListComponent {
     }
   }
 
+  manageProducts($event: MouseEvent, productManagerDialogRef) {
+    $event.stopImmediatePropagation();
+    this.dialogService.open(
+      productManagerDialogRef,
+      {
+        context: 'this is some additional data passed to dialog',
+        closeOnEsc: false,
+      });
+  }
 }

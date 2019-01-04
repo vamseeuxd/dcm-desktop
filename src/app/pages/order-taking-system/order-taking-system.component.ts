@@ -2,6 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {NgbTypeaheadSelectItemEvent} from '@ng-bootstrap/ng-bootstrap';
 import {NbToastrService} from '@nebular/theme';
 import {OrderService} from './shoping-cart/order.service';
+import {ProductsService} from './product-search-list/product-service/products.service';
 
 @Component({
   selector: 'ngx-order-taking-system',
@@ -16,6 +17,7 @@ export class OrderTakingSystemComponent {
   constructor(
     private toastService: NbToastrService,
     private orderService: OrderService,
+    private productsService: ProductsService,
   ) {
     this.addDummyProducts();
   }
@@ -25,6 +27,8 @@ export class OrderTakingSystemComponent {
       let newCategory = {categoryName: '', products: []};
       newCategory = {categoryName: 'Category ' + i, products: []};
       for (let j = 0; j < 10; j++) {
+        // productsService
+        // this.category.allProducts
         newCategory.products.push({id: i + '-' + j, label: 'Product ' + i + '-' + j});
         this.allProducts.push({id: i + '-' + j, label: 'Product ' + i + '-' + j});
         if (j === 0) {
@@ -40,7 +44,7 @@ export class OrderTakingSystemComponent {
     this.toastService.show(
       'Product Added To Cart',
       $event.label + ' is added to Cart',
-      {icon: 'fas fa-cart-plus'}
+      {icon: 'fas fa-cart-plus'},
     );
   }
 }

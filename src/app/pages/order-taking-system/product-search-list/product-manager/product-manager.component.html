@@ -1,0 +1,43 @@
+<nb-card size="large">
+  <nb-card-header>
+    <h4>Manage Products</h4>
+    <form class="mb-3 mt-3">
+      <div class="row">
+        <div class="col-12">
+        </div>
+        <div class="col">
+          <label>New Category Name</label>
+          <input class="form-control" placeholder="New Category Name" type="text">
+        </div>
+
+        <div class="col">
+          <label>Active From</label>
+          <input class="form-control" placeholder="Active From" type="date">
+        </div>
+
+        <div class="col">
+          <label>Active To</label>
+          <input class="form-control" placeholder="Active To" type="date">
+        </div>
+      </div>
+    </form>
+  </nb-card-header>
+
+  <nb-card-body>
+
+    <nb-accordion multi>
+      <nb-accordion-item *ngFor="let category of categories">
+        <nb-accordion-item-header>
+          <label class="card-title">{{category.name}}</label>
+          <label class="active-from ml-3">Active from {{category.activeFrom}} to {{category.activeTo}}</label>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
+          Originally, nebula was a name for any diffuse astronomical object,
+          including galaxies beyond the Milky Way.
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </nb-card-body>
+
+</nb-card>
